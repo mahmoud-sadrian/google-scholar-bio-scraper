@@ -21,18 +21,18 @@ def clean_name(name: str) -> str:
         name = re.sub(clean_name_pattern, '', name, flags=re.IGNORECASE).strip()
     return name
 
-test_names = [
-    "Dr. Jane Doe",
-    "Prof. Dr. Max Müller",
-    "Mr Ali Reza",
-    "Lt. Col. Amir Hosseini",
-    "Professor John Smith",
-    "Father Joseph",
-    "Reverend Dr. Sarah Connor",
-    "Sir Isaac Newton",
-    "Rt. Hon. Prof. Albert Einstein"
-]
+# test_names = [
+#     "Dr. Jane Doe",
+#     "Prof. Dr. Max Müller",
+#     "Mr Ali Reza",
+#     "Lt. Col. Amir Hosseini",
+#     "Professor John Smith",
+#     "Father Joseph",
+#     "Reverend Dr. Sarah Connor",
+#     "Sir Isaac Newton",
+#     "Rt. Hon. Prof. Albert Einstein"
+# ]
 
-for name in test_names:
-    cleaned = clean_name(name)
-    print(f"{name}  →  {cleaned}")
+# for name in test_names:
+#     cleaned = clean_name(name)
+#     print(f"{name}  →  {cleaned}")
