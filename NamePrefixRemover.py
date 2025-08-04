@@ -19,7 +19,7 @@ def clean_name(name: str) -> str:
     while old != name:
         old = name
         name = re.sub(clean_name_pattern, '', name, flags=re.IGNORECASE).strip()
-    return name.lower()
+    return name
 
 # test_names = [
 #     "Dr. Jane Doe",
