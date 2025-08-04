@@ -16,3 +16,7 @@ def user_input_affiliation():
     affiliation = input().strip()
     return affiliation if affiliation else None
 
+def user_input_keywords():
+    print("Enter keywords (comma-separated, e.g., 'fuzzy logic, artificial intelligence')")
+    keywords = input().strip()
+    return [kw.strip() for kw in keywords.split(',')] if keywords else []
