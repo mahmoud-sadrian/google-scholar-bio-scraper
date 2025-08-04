@@ -2,9 +2,6 @@ from NamePrefixRemover import clean_name
 def user_input_name():
     print("Enter the name of the author you want to search for: (Example: 'Lotfi A. Zadeh')")
     name = input().strip()
-    if not name:
-        print("Search query cannot be empty. Please try again.")
-        return user_input_name()
     return clean_name(name) if name else None
 
 def user_input_email():
