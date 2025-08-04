@@ -1,22 +1,95 @@
-def user_input_name():
-    print("Enter the name of the author you want to search for: (Example: 'Lotfi A. Zadeh')")
-    search_query = input().strip()
-    if not search_query:
-        print("Search query cannot be empty. Please try again.")
-        return user_input_name()
-    return search_query if search_query else None
+import time
+import UsrQueryOptions
 
-def user_input_email():
-    print("Enter the email (e.g., 'lotfi@university.edu')")
-    email = input().strip()
-    return email if email else None
+query = {}
 
-def user_input_affiliation():
-    print("Enter the affiliation (e.g., 'University of California')")
-    affiliation = input().strip()
-    return affiliation if affiliation else None
+def enter_page():
+    print("Welcome to the Google Scholar Bio Scraper!")
+    print("Please choose an option:")
+    print("1. Enter search criteria")
+    print("2. View current search criteria")
+    print("3. Clear search criteria")
+    print("4. Exit")
+    
+    choice = input("Enter your choice (1-4): ").strip()
+    # clear console
+    print("\033c", end="")
+    
+    if choice == '1':
+        enter_search_criteria()
+    elif choice == '2':
+        view_search_criteria()
+    elif choice == '3':
+        clear_search_criteria()
+    elif choice == '4':
+        exit_program()
+    else:
+        print("Invalid choice. Please try again.")
 
-def user_input_keywords():
-    print("Enter keywords (comma-separated, e.g., 'fuzzy logic, artificial intelligence')")
-    keywords = input().strip()
-    return [kw.strip() for kw in keywords.split(',')] if keywords else []
+        # wait and clear console
+        
+        time.sleep(2)
+        print("\033c", end="") 
+  
+        enter_page()
+
+def enter_search_criteria():
+    print("If you want to skip a criteria, just press Enter\n")
+    name = UsrQueryOptions.user_input_name()
+    email = UsrQueryOptions.user_input_email()
+    affiliation = UsrQueryOptions.user_input_affiliation()
+    keywords = UsrQueryOptions.user_input_keywords()
+    
+    if name:
+        query['name'] = name
+    if email:
+        query['email'] = email
+    if affiliation:
+        query['affiliation'] = affiliation
+    if keywords:
+        query['keywords'] = keywords
+    
+    print()
+    print("Search criteria updated.")
+
+    print()
+    input("Press Enter to return to the main menu...")
+    # clear console
+    print("\033c", end="")
+
+    enter_page()
+
+def view_search_criteria():
+    if not query:
+        print("No search criteria set.")
+    else:
+        print("Current search criteria:")
+        for key, value in query.items():
+            print(f"{key.capitalize()}: {value}")
+
+    print()
+    input("Press Enter to return to the main menu...")
+    # clear console
+    print("\033c", end="")
+
+    enter_page()
+
+def clear_search_criteria():
+    query.clear()
+    print("Search criteria cleared.")
+
+    print()
+    input("Press Enter to return to the main menu...")
+    # clear console
+    print("\033c", end="")
+
+    enter_page()
+
+def exit_program():
+    print("Exiting the program. Goodbye!")
+    time.sleep(1)
+    exit()
+
+if __name__ == "__main__":
+    enter_page()
+    
