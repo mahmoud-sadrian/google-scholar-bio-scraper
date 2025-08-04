@@ -90,7 +90,8 @@ def edit_search_criteria():
     print("Current search criteria:")
     for key, value in query.items():
         print(f"{key.capitalize()}: {value}")
-
+    
+    print("\n#############################################################################################")
     print("\nEnter new values for the criteria you want to change (leave blank to keep current value):\n")
     
     name = UsrQueryOptions.user_input_name()
@@ -107,7 +108,7 @@ def edit_search_criteria():
     if keywords:
         query['keywords'] = keywords
     
-    print()
+    print("#############################################################################################\n")
     print("Search criteria updated.")
 
     print()
