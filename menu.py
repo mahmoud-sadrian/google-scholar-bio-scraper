@@ -3,7 +3,8 @@ import os
 from scraper.state import query
 from scraper.criteria import enter, view, edit, clear
 
-def clear_console():
+def clear_console(sleep_time=0.0):
+    time.sleep(sleep_time)
     os.system("cls" if os.name == "nt" else "clear")
 
 def wait_return():
@@ -39,10 +40,8 @@ def main_menu():
                 wait_return()
             case '5':
                 print("👋 Exiting the program. Goodbye!")
-                time.sleep(0.5)
-                clear_console()
+                clear_console(0.5)
                 exit()
             case _:
                 print("❌ Invalid choice. Please try again.")
-                time.sleep(1)
-                clear_console()
+                clear_console(1)
