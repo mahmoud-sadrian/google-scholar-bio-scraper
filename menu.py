@@ -1,9 +1,9 @@
 import time
-import UsrQueryOptions
+from scraper import UsrQueryOptions
 
 query = {}
 
-def enter_page():
+def menu():
     print("Welcome to the Google Scholar Bio Scraper!")
     print("Please choose an option:")
     print("1. Enter search criteria")
@@ -34,7 +34,7 @@ def enter_page():
         time.sleep(2)
         print("\033c", end="") 
   
-        enter_page()
+        menu()
 
 def enter_search_criteria():
     print("If you want to skip a criteria, just press Enter\n")
@@ -60,7 +60,7 @@ def enter_search_criteria():
     # clear console
     print("\033c", end="")
 
-    enter_page()
+    menu()
 
 def view_search_criteria():
     if not query:
@@ -75,7 +75,7 @@ def view_search_criteria():
     # clear console
     print("\033c", end="")
 
-    enter_page()
+    menu()
 
 def edit_search_criteria():
     if not query:
@@ -84,7 +84,7 @@ def edit_search_criteria():
         input("Press Enter to return to the main menu...")
         # clear console
         print("\033c", end="")
-        enter_page()
+        menu()
         return
 
     print("Current search criteria:")
@@ -116,7 +116,7 @@ def edit_search_criteria():
     # clear console
     print("\033c", end="")
 
-    enter_page()
+    menu()
 
 def clear_search_criteria():
     query.clear()
@@ -127,14 +127,14 @@ def clear_search_criteria():
     # clear console
     print("\033c", end="")
 
-    enter_page()
+    menu()
 
 def exit_program():
     print("Exiting the program. Goodbye!")
-    time.sleep(1)
+    time.sleep(0.5)
     exit()
 
 if __name__ == "__main__":
-    enter_page()
+    menu()
 
 
