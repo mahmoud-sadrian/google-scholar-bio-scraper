@@ -2,7 +2,7 @@ import re
 
 # List of known prefixes to remove
 prefixes_to_remove = [
-    "dr", "prof", "professor",
+    "dr", "prof", "professor", "doctor", "lect", "lecturer", "master",
     "mr", "mrs", "ms", "miss", "mx",
     "capt", "captain", "col", "colonel", "maj", "major",
     "lt", "lieutenant", "gen", "general", "sgt", "sergeant",
