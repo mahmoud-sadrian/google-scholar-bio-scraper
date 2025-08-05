@@ -10,12 +10,7 @@ def handle(query: dict):
 
     print("🔍 Searching Google Scholar...\n")
 
-    profile = find_best_match(
-        name=query.get('name'),
-        email=query.get('email'),
-        affiliation=query.get('affiliation'),
-        keywords=query.get('keywords')
-    )
+    profile = find_best_match(query)
 
     if profile:
         formatted = format_profile(profile)
