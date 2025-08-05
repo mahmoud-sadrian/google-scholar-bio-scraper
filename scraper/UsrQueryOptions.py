@@ -1,4 +1,5 @@
-from NamePrefixRemover import clean_name
+from scraper.NamePrefixRemover import clean_name
+
 def user_input_name():
     print("Enter the name of the author you want to search for: (Example: 'Lotfi A. Zadeh')")
     name = input().strip()
