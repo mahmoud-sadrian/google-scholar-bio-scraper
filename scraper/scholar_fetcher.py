@@ -1,5 +1,5 @@
 from scholarly import scholarly
-from NamePrefixRemover import clean_name
+from .NamePrefixRemover import clean_name
 
 def find_best_match(query: dict) -> dict | None:
     """Search author by cleaned name, filter by other criteria, and return filled profile."""
