@@ -1,7 +1,7 @@
 import time
 import os
 from scraper.state import query
-from scraper.criteria import enter, view, edit, clear
+from scraper.criteria import enter, view, edit, clear, search
 
 def clear_console(sleep_time=0.0):
     time.sleep(sleep_time)
@@ -20,9 +20,10 @@ def main_menu():
         print("2. View current search criteria")
         print("3. Edit search criteria")
         print("4. Clear search criteria")
-        print("5. Exit")
+        print("5. Search and show Google Scholar profile")
+        print("6. Exit")
 
-        choice = input("Enter your choice (1-5): ").strip()
+        choice = input("Enter your choice (1-6): ").strip()
         clear_console()
 
         match choice:
@@ -38,7 +39,10 @@ def main_menu():
             case '4':
                 clear.handle(query)
                 wait_return()
-            case '5':
+            case '5': 
+                search.handle(query)
+                wait_return()
+            case '6':
                 print("👋 Exiting the program. Goodbye!")
                 clear_console(0.5)
                 exit()
