@@ -18,7 +18,6 @@ def format_profile(profile: dict, max_pubs: int = 5) -> str:
     all_cites = profile.get('citedby', 0)
     all_h = profile.get('hindex', 0)
     all_i10 = profile.get('i10index', 0)
-    # Since year filtering requires additional data: skip due to scholarly limitations
     lines.append(f"\nCitations: {all_cites:,} (All time)")
     lines.append(f"h-index: {all_h} (All time)")
     lines.append(f"i10-index: {all_i10} (All time)")
