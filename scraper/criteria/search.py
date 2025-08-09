@@ -5,12 +5,12 @@ import sys
 
 def handle(query: dict):
     if ('ID' not in query or not query['ID'].strip()) and ('URL' not in query or not query['URL'].strip()):
-        print("⚠️ You must enter an URL/ID before searching.")
+        print("⚠️ You must enter an URL or ID before searching.")
         return
 
     print("🔍 Searching Google Scholar", end="")
     sys.stdout.flush()
-    for i in range(3):
+    for _ in range(3):
         print(".", end="", flush=True)
         sleep(0.5)
     print("\n")
@@ -26,7 +26,9 @@ def handle(query: dict):
     
     save = input("\nSave to file? (y/n): ").strip().lower()
     if save == 'y':
-        filename = f"extracted_info_{query['name'].replace(' ', '_')}.txt"
+        # Use name if available, else ID, else URL-derived ID
+        filename_base = query.get('name', query.get('ID', query.get('URL', 'unknown').split('user=')[-1])).replace(' ', '_')
+        filename = f"extracted_info_{filename_base}.txt"
         with open(filename, 'w') as f:
             f.write(bio)
         print(f"📝 Profile saved to {filename}.")
