@@ -103,7 +103,19 @@ class SearchCommand(Command):
         if not query.get('ID') and not query.get('URL') and not query.get('name'):
             print("⚠️ You must enter a name, URL, or ID before searching.")
             return
-        
+
+        # First check if we already have this profile saved
+        filename = self._generate_filename(query)
+        if filename and os.path.exists(filename):
+            use_saved = input(f"Found existing profile {filename}. Use this instead of searching? (y/n): ").strip().lower()
+            if use_saved == 'y':
+                try:
+                    with open(filename, 'r', encoding='utf-8') as f:
+                        print(f"\n✅ Using saved profile:\n\n{f.read()}")
+                    return
+                except Exception as e:
+                    print(f"❌ Error reading file: {e}. Will search online instead.")
+
         print("🔍 Searching Google Scholar", end="")
         sys.stdout.flush()
         for _ in range(3):
@@ -122,15 +134,9 @@ class SearchCommand(Command):
         
         save = input("\nSave to file? (y/n): ").strip().lower()
         if save == 'y':
-            import os
-            # Create extracted_info directory if it doesn't exist
             os.makedirs('extracted_info', exist_ok=True)
+            filename = self._generate_filename(profile)
             
-            filename_base = query.get('name', '') or query.get('ID', '') or query.get('URL', '').split('user=')[-1]
-            filename_base = filename_base.replace(' ', '_').replace('/', '_')[:50]
-            filename = os.path.join('extracted_info', f"extracted_info_{filename_base}.txt")
-            
-            # Check if file exists
             if os.path.exists(filename):
                 overwrite = input(f"⚠️ File {filename} already exists. Overwrite? (y/n): ").strip().lower()
                 if overwrite != 'y':
@@ -143,6 +149,34 @@ class SearchCommand(Command):
                 print(f"📝 Profile saved to {filename}")
             except Exception as e:
                 print(f"❌ Error saving file: {e}")
+
+    def _generate_filename(self, data):
+        """Generate filename based on available data"""
+        import os
+        from urllib.parse import urlparse
+        
+        # Extract components
+        name = data.get('name', '').replace(' ', '_')
+        scholar_id = data.get('scholar_id') or data.get('ID', '')
+        
+        # If we got a URL, extract the ID
+        if not scholar_id and data.get('URL'):
+            url = data.get('URL')
+            if 'user=' in url:
+                scholar_id = url.split('user=')[1].split('&')[0]
+        
+        # Generate filename components
+        filename_parts = []
+        if name:
+            filename_parts.append(name)
+        if scholar_id:
+            filename_parts.append(scholar_id)
+        
+        if not filename_parts:
+            return None
+        
+        filename = '_'.join(filename_parts) + '.txt'
+        return os.path.join('extracted_info', filename)
 
 class Controller:
     def __init__(self):
