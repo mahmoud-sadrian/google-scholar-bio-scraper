@@ -4,6 +4,7 @@ from .scholar_fetcher import find_best_match
 from .profile_formatter import format_profile
 from time import sleep
 import sys
+import os
 
 class Command(ABC):
     @abstractmethod
