@@ -27,6 +27,9 @@ class QueryState:
     def input_URL(self):
         print("Enter the author URL (e.g., 'https://scholar.google.com/citations?hl=en&user=S6H-0RAAAAAJ'): ")
         author_url = input().strip()
+        if author_url and not re.match(r'^https://scholar\.google\.com', author_url):
+            print("⚠️ URL must start with 'https://scholar.google.com'.")
+            return None
         return author_url if author_url else None
 
     def input_email(self):
