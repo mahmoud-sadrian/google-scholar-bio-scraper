@@ -31,10 +31,13 @@ def find_best_match(query: dict) -> dict | None:
             for author in search_res:
                 profile = scholarly.fill(author)
                 
-                # Filter email domain
-                if query.get('email'):
-                    domain = profile.get('email_domain', '')
-                    if query['email'].split('@')[-1] not in domain:
+                # Filter email domain (only if both exist)
+                if query.get('email') and profile.get('email_domain'):
+                    query_domain = query['email'].split('@')[-1].lower()
+                    profile_domain = profile['email_domain'].lower().lstrip('@')
+                    
+                    # Check if domains match
+                    if query_domain != profile_domain:
                         continue
 
                 # Filter affiliation
