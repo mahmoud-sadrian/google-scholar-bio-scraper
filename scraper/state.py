@@ -72,7 +72,7 @@ class QueryState:
             return "No search criteria entered."
         lines = ["Current search criteria:\n"]
         for key, value in self.query.items():
-            if key == "keywords" and isinstance(value, list):
+            if key == "interests" and isinstance(value, list):
                 value = ", ".join(value) if value else "None"
             lines.append(f"{key.capitalize()}: {value or 'None'}")
         return "\n".join(lines)
