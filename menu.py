@@ -24,12 +24,11 @@ def main_menu():
         print("6. Exit")
         choice = input("Enter your choice (1-6): ").strip()
         clear_console()
-        match choice:
-            case '6':
-                print("👋 Exiting the program. Goodbye!")
-                clear_console(0.5)
-                exit()
-            case _:
-                controller.execute_command(choice)
-                if choice in controller.commands:
-                    wait_return()
+        
+        if choice == '6':
+            print("👋 Exiting the program. Goodbye!")
+            clear_console(0.5)
+            exit()
+        
+        controller.execute_command(choice)
+        wait_return()
