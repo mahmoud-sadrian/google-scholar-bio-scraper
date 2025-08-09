@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from scraper.state import query_state
-from scraper.scholar_fetcher import find_best_match
-from scraper.profile_formatter import format_profile
+from ..scraper.state import query_state
+from ..scraper.scholar_fetcher import find_best_match
+from ..scraper.profile_formatter import format_profile
 from time import sleep
 import sys
 
