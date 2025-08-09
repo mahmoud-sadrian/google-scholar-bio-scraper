@@ -1,6 +1,6 @@
 import time
 import os
-from scraper.state import query
+from scraper.state import query_state
 from scraper.criteria import enter, view, edit, clear, search
 
 def clear_console(sleep_time=0.0):
@@ -28,19 +28,19 @@ def main_menu():
 
         match choice:
             case '1':
-                enter.handle(query)
+                enter.handle(query_state)
                 wait_return()
             case '2':
-                view.handle(query)
+                view.handle(query_state)
                 wait_return()
             case '3':
-                edit.handle(query)
+                edit.handle(query_state)
                 wait_return()
             case '4':
-                clear.handle(query)
+                clear.handle(query_state)
                 wait_return()
             case '5': 
-                search.handle(query)
+                search.handle(query_state.query)
                 wait_return()
             case '6':
                 print("👋 Exiting the program. Goodbye!")
