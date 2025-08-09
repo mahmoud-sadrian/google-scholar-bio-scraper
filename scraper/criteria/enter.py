@@ -1,15 +1,20 @@
-from .. import UsrQueryOptions
+def handle(query_state):
+    print("Enter new search criteria (leave blank to skip) ↓\n")
 
-def handle(query: dict):
-    print("✏️ Enter search criteria (press Enter to skip a field):\n")
-    name = UsrQueryOptions.user_input_name()
-    email = UsrQueryOptions.user_input_email()
-    affiliation = UsrQueryOptions.user_input_affiliation()
-    keywords = UsrQueryOptions.user_input_keywords()
+    name = query_state.input_name()
+    if name:
+        query_state.update("name", name)
+    
+    email = query_state.input_email()
+    if email:
+        query_state.update("email", email)
+    
+    affiliation = query_state.input_affiliation()
+    if affiliation:
+        query_state.update("affiliation", affiliation)
 
-    if name: query['name'] = name
-    if email: query['email'] = email
-    if affiliation: query['affiliation'] = affiliation
-    if keywords: query['keywords'] = keywords
+    interests = query_state.input_interests()
+    if interests:
+        query_state.update("interests", interests)
 
     print("\n✅ Search criteria updated.")
