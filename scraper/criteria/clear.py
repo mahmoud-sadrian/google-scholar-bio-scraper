@@ -1,3 +1,3 @@
-def handle(query: dict):
-    query.clear()
-    print("🗑️ Search criteria cleared.")
+def handle(query_state):
+    query_state.clear()
+    print("✅ All search criteria cleared.")
