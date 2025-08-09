@@ -52,7 +52,7 @@ class QueryState:
     def view(self):
         if not self.query:
             return "No search criteria entered."
-        lines = ["Current search criteria:"]
+        lines = ["Current search criteria:\n"]
         for key, value in self.query.items():
             if key == "keywords" and isinstance(value, list):
                 value = ", ".join(value) if value else "None"
