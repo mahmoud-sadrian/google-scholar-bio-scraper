@@ -1,23 +1,37 @@
-from .. import UsrQueryOptions
-
-def handle(query: dict):
-    if not query:
-        print("⚠️ No search criteria to edit. Please enter some first.")
-        return
-
-    print("✏️ Edit search criteria (leave blank to keep current value):\n")
-    for key, value in query.items():
-        print(f"Current {key.capitalize()}: {value}")
-    print("\n" + "-" * 60)
-
-    name = UsrQueryOptions.user_input_name()
-    email = UsrQueryOptions.user_input_email()
-    affiliation = UsrQueryOptions.user_input_affiliation()
-    keywords = UsrQueryOptions.user_input_keywords()
-
-    if name: query['name'] = name
-    if email: query['email'] = email
-    if affiliation: query['affiliation'] = affiliation
-    if keywords: query['keywords'] = keywords
-
-    print("\n✅ Search criteria updated.")
+def handle(query_state):
+    """Handle editing existing search criteria."""
+    print(query_state.view())
+    print("\nWhich field would you like to edit?")
+    print("1. Name")
+    print("2. Email")
+    print("3. Affiliation")
+    print("4. Keywords")
+    print("5. Cancel")
+    
+    choice = input("Enter your choice (1-5): ").strip()
+    
+    match choice:
+        case '1':
+            name = query_state.input_name()
+            if name:
+                query_state.update("name", name)
+                print("✅ Name updated.")
+        case '2':
+            email = query_state.input_email()
+            if email:
+                query_state.update("email", email)
+                print("✅ Email updated.")
+        case '3':
+            affiliation = query_state.input_affiliation()
+            if affiliation:
+                query_state.update("affiliation", affiliation)
+                print("✅ Affiliation updated.")
+        case '4':
+            keywords = query_state.input_keywords()
+            if keywords:
+                query_state.update("keywords", keywords)
+                print("✅ Keywords updated.")
+        case '5':
+            print("No changes made.")
+        case _:
+            print("❌ Invalid choice.")
