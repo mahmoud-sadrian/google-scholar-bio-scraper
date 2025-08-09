@@ -1,7 +1,6 @@
 import time
 import os
-from scraper.state import query_state
-from scraper.criteria import enter, view, edit, clear, search
+from scraper.controller import Controller
 
 def clear_console(sleep_time=0.0):
     time.sleep(sleep_time)
@@ -12,6 +11,7 @@ def wait_return():
     clear_console()
 
 def main_menu():
+    controller = Controller()
     while True:
         print("📚 Welcome to the Google Scholar Bio Scraper!")
         print("--------------------------------------------")
@@ -22,30 +22,14 @@ def main_menu():
         print("4. Clear search criteria")
         print("5. Search and show Google Scholar profile")
         print("6. Exit")
-
         choice = input("Enter your choice (1-6): ").strip()
         clear_console()
-
         match choice:
-            case '1':
-                enter.handle(query_state)
-                wait_return()
-            case '2':
-                view.handle(query_state)
-                wait_return()
-            case '3':
-                edit.handle(query_state)
-                wait_return()
-            case '4':
-                clear.handle(query_state)
-                wait_return()
-            case '5': 
-                search.handle(query_state.query)
-                wait_return()
             case '6':
                 print("👋 Exiting the program. Goodbye!")
                 clear_console(0.5)
                 exit()
             case _:
-                print("❌ Invalid choice. Please try again.")
-                clear_console(1)
+                controller.execute_command(choice)
+                if choice in controller.commands:
+                    wait_return()
