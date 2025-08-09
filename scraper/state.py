@@ -20,7 +20,7 @@ class QueryState:
         return clean_name(name) if name else None
 
     def input_ID(self):
-        print("Enter the author ID (e.g., 'S6H-0RAAAAAJ'): ")
+        print("Enter the author ID (e.g., 'https://scholar.google.com/citations?hl=en&user=\033[1;4mS6H-0RAAAAAJ\033[0m'): ") # Bold and Underline "S6H-0RAAAAAJ"
         author_id = input().strip()
         if not author_id:
             return None
