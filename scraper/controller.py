@@ -150,6 +150,12 @@ class SearchCommand(Command):
                 print(f"📝 Profile saved to {filename}")
             except Exception as e:
                 print(f"❌ Error saving file: {e}")
+            filename_base = query.get('name', '') or query.get('ID', '') or query.get('URL', '').split('user=')[-1]
+            filename_base = filename_base.replace(' ', '_').replace('/', '_')[:50]
+            filename = f"extracted_info_{filename_base}.txt"
+            with open(filename, 'w') as f:
+                f.write(bio)
+            print(f"📝 Profile saved to {filename}.")
 
     def _generate_filename(self, data):
         """Generate filename based on available data"""
