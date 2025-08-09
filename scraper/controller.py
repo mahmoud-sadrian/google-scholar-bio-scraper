@@ -87,25 +87,30 @@ class ClearCommand(Command):
 class SearchCommand(Command):
     def execute(self):
         query = query_state.query
-        if ('ID' not in query or not query['ID'].strip()) and ('URL' not in query or not query['URL'].strip()) and ('name' not in query or not query['name'].strip()):
+        if not query.get('ID') and not query.get('URL') and not query.get('name'):
             print("⚠️ You must enter a name, URL, or ID before searching.")
             return
+        
         print("🔍 Searching Google Scholar", end="")
         sys.stdout.flush()
         for _ in range(3):
             print(".", end="", flush=True)
             sleep(0.5)
         print("\n")
+        
         profile = find_best_match(query)
         if not profile:
             print("❌ No matching profile found.")
             return
+            
         bio = format_profile(profile)
         print("✅ Profile Found:\n")
         print(bio)
+        
         save = input("\nSave to file? (y/n): ").strip().lower()
         if save == 'y':
-            filename_base = query.get('name', query.get('ID', query.get('URL', 'unknown').split('user=')[-1])).replace(' ', '_')
+            filename_base = query.get('name', '') or query.get('ID', '') or query.get('URL', '').split('user=')[-1]
+            filename_base = filename_base.replace(' ', '_').replace('/', '_')[:50]
             filename = f"extracted_info_{filename_base}.txt"
             with open(filename, 'w') as f:
                 f.write(bio)
@@ -126,4 +131,4 @@ class Controller:
         if command:
             command.execute()
         else:
-            print("❌ Invalid choice.")
+            print("❌ Invalid choice. Please select 1-6.")
