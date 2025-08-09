@@ -20,9 +20,24 @@ class QueryState:
         return clean_name(name) if name else None
 
     def input_ID(self):
-        print("Enter the author ID (e.g., 'https://scholar.google.com/citations?hl=en&user=\033[1;4mS6H-0RAAAAAJ\033[0m'): ") # Bold and Underline "S6H-0RAAAAAJ"
+        print("Enter the author ID (e.g., 'S6H-0RAAAAAJ'): ")
         author_id = input().strip()
-        return author_id if author_id else None
+        if not author_id:
+            return None
+        
+        # Check if input is a URL and extract the ID
+        if author_id.startswith('https://scholar.google.com'):
+            match = re.search(r'user=([a-zA-Z0-9_-]+)', author_id)
+            if match:
+                return match.group(1)
+            print("⚠️ Invalid URL: No valid author ID found.")
+            return None
+        
+        # Validate direct ID input
+        if re.match(r'^[a-zA-Z0-9_-]+$', author_id):
+            return author_id
+        print("⚠️ Invalid author ID format. Use alphanumeric characters, hyphens, or underscores.")
+        return None
 
     def input_URL(self):
         print("Enter the author URL (e.g., 'https://scholar.google.com/citations?hl=en&user=S6H-0RAAAAAJ'): ")
